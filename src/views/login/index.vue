@@ -1,6 +1,7 @@
 <template>
   <div class="login">
     登录页
+    <el-button type="success">Success</el-button>
   </div>
 </template>
 

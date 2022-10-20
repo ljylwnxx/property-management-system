@@ -19,29 +19,36 @@
         :rules="rules"
         class="demo-ruleForm"
       >
-        <el-form-item prop="pass">
+        <el-form-item prop="username">
           <label>邮箱</label>
           <el-input
-            v-model="ruleForm.pass"
-            type="password"
+            v-model="ruleForm.username"
+            type="text"
             autocomplete="off"
           />
         </el-form-item>
-        <el-form-item prop="checkPass">
+        <el-form-item prop="password">
           <label>密码</label>
           <el-input
-            v-model="ruleForm.checkPass"
+            v-model="ruleForm.password"
             type="password"
             autocomplete="off"
+            minlength="6"
+            maxlength="15"
           />
         </el-form-item>
-        <el-form-item prop="age">
-          <label>验证密码</label>
-          <el-input v-model.number="ruleForm.age" />
+        <el-form-item prop="passwords"  v-show="model==='register'">
+          <label>重复密码</label>
+          <el-input
+          v-model.number="ruleForm.passwords"
+          type="password"
+          minlength="6"
+          maxlength="15"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="login-btn block" @click="submitForm(ruleFormRef)"
-            >登录</el-button
+            >{{model==="login" ? "登录" : "注册"}}</el-button
           >
         </el-form-item>
       </el-form>
@@ -56,66 +63,71 @@ import type { FormInstance } from "element-plus";
 
 const MenuData = reactive([
   { txt: "登录", current: true, type: "login" },
-  { txt: "注册", current: false, type: "login" },
+  { txt: "注册", current: false, type: "register" },
 ]);
+
+
+let model = ref("login")
 
 let MenuClick = (e: any) => {
   MenuData.forEach((el) => {
     el.current = false;
   });
   e.current = true;
+
+  // 修改保存点击的状态
+  model.value = e.type
 };
 // 表单
 const ruleFormRef = ref<FormInstance>();
 
-const checkAge = (rule: any, value: any, callback: any) => {
-  if (!value) {
-    return callback(new Error("Please input the age"));
+const checkUser = (rule: any, value: any, callback: any) => {
+   let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+   if (!value) {
+    return callback(new Error("邮箱不能为空！"));
+  }else if(!reg.test(value)){
+    return callback(new Error("邮箱格式不正确！"));
+  }else{
+    callback()
   }
-  setTimeout(() => {
-    if (!Number.isInteger(value)) {
-      callback(new Error("Please input digits"));
-    } else {
-      if (value < 18) {
-        callback(new Error("Age must be greater than 18"));
-      } else {
-        callback();
-      }
-    }
-  }, 1000);
-};
+}
+
 
 const validatePass = (rule: any, value: any, callback: any) => {
+  let reg = /^(?!\D+$)(?![^a-zA-Z]+$)\S{6,15}$/
   if (value === "") {
-    callback(new Error("Please input the password"));
+    callback(new Error("密码不能为空"));
+  } else if(!reg.test(value)){
+    callback(new Error("密码格式错误必须6-15位的字母+数字"));
   } else {
-    if (ruleForm.checkPass !== "") {
-      if (!ruleFormRef.value) return;
-      ruleFormRef.value.validateField("checkPass", () => null);
-    }
     callback();
   }
 };
+
+
 const validatePass2 = (rule: any, value: any, callback: any) => {
+  if(model.value === 'login') {
+    callback()
+  }
   if (value === "") {
-    callback(new Error("Please input the password again"));
-  } else if (value !== ruleForm.pass) {
-    callback(new Error("Two inputs don't match!"));
+    callback(new Error("重复密码不能为空"));
+  } else if (value !== ruleForm.password) {
+    callback(new Error("两次密码必须相同"));
   } else {
     callback();
   }
 };
 
 const ruleForm = reactive({
-  pass: "",
-  checkPass: "",
-  age: "",
+  username: '',
+  password: '',
+  passwords: ""
 });
 
 const rules = reactive({
-  pass: [{ validator: validatePass, trigger: "blur" }],
-  checkPass: [{ validator: validatePass2, trigger: "blur" }],
-  age: [{ validator: checkAge, trigger: "blur" }],
+  password: [{ validator: validatePass, trigger: "blur" }],
+  passwords: [{ validator: validatePass2, trigger: "blur" }],
+  username: [{ validator: checkUser, trigger: "blur" }],
 });
 
 const submitForm = (formEl: FormInstance | undefined) => {

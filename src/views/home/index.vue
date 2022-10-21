@@ -8,7 +8,10 @@
         <el-header>
             <RightTop/>
         </el-header>
-        <el-main>Main</el-main>
+        <el-main>
+            <!-- 二级路由出口 -->
+            <router-view/>
+        </el-main>
       </el-container>
     </el-container>
   </div>

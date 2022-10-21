@@ -1,6 +1,7 @@
 let apiUrl={
     register:"/register",
-    userlist:"/userlist"
+    userlist:"/userlist",
+    chartDataOne:"/chartDataOne"
 }
 
  export default apiUrl

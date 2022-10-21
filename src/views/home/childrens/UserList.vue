@@ -7,7 +7,11 @@
     <el-table-column prop="num" label="门牌号" />
     <el-table-column prop="hometype" label="房源户型" />
     <el-table-column prop="name" label="户主" />
-    
+    <el-table-column>
+      <template #header>
+        <el-input v-model="search" size="small" placeholder="请输入查询内容" @blur="searchLink"/>
+      </template>
+    </el-table-column>
   </el-table>
   <el-pagination
       v-model:currentPage="currentPage4"
@@ -25,6 +29,9 @@
 import { ref ,onMounted, reactive} from 'vue'
 import link from "../../../api/Link.js"
 import apiUrl from "../../../api/url.js"
+
+
+let search =ref("")
 const currentPage4 = ref(1)
 const pageSize4 = ref(15)
 const small = ref(false)
@@ -41,6 +48,15 @@ const handleCurrentChange = (val: number) => {
 let tableData = reactive({
   listdata:[]
 })
+
+
+let searchLink=()=>{
+  link(apiUrl.userlist,"get",{},{name:search.value}).then((ok:any)=>{
+   console.log(ok);
+   tableData.listdata = ok.data
+  })
+}
+
 
 onMounted(()=>{
   link(apiUrl.userlist).then((ok:any)=>{

@@ -29,6 +29,17 @@ service.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     return response;
   }, function (error) {
+    switch (error.response.status) {
+      case 404:
+        alert("当前路径有误！");
+        break;
+      case 500:
+        alert("服务器连接失败请稍后再试！！");
+        break;
+      default:
+        alert("未知错误！！");
+        break;
+    }
     // 对响应错误做点什么
     return Promise.reject(error);
   });

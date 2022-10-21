@@ -47,9 +47,13 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" class="login-btn block" @click="submitForm(ruleFormRef)"
-            >{{model==="login" ? "登录" : "注册"}}</el-button
-          >
+          <el-button
+          :disabled="btnbool"
+          type="primary"
+          class="login-btn block"
+          @click="submitForm(ruleFormRef)"
+          >{{model==="login" ? "登录" : "注册"}}
+          </el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -57,7 +61,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import { ref } from "vue";
 import { ElMessage, FormInstance } from "element-plus";
 import  * as ck from "../../utils/verfifcation.js"
@@ -72,6 +76,7 @@ const MenuData = reactive([
 
 
 let model = ref("login")
+
 
 let MenuClick = (e: any) => {
   MenuData.forEach((el) => {
@@ -128,6 +133,26 @@ const ruleForm = reactive({
   passwords: ""
 });
 
+let btnbool = ref(true)
+watch(ruleForm,(newval,oldval)=>{
+  if(model.value==="login"){
+    // if(newval.username!==''&&newval.password!==''){
+    //    btnbool.value = false
+    // }else{
+    //   btnbool.value = true
+    // }
+    newval.username!==''&&newval.password!=='' ? btnbool.value = false :  btnbool.value = true
+  }else{
+    // if(newval.username!==''&&newval.password!==''&&newval.passwords!==''){
+    //    btnbool.value = false
+    // }else{
+    //   btnbool.value = true
+    // }
+    newval.username!==''&&newval.password!==''&&newval.passwords!=='' ? btnbool.value = false :  btnbool.value = true
+  }
+})
+
+
 const rules = reactive({
   password: [{ validator: validatePass, trigger: "blur" }],
   passwords: [{ validator: validatePass2, trigger: "blur" }],
@@ -140,6 +165,16 @@ const submitForm = (formEl: FormInstance | undefined) => {
     if (valid) {
       if(model.value==="login"){
         console.log("登录")
+
+        link(apiUrl.register,"get",{},{name:ruleForm.username,pwd:ruleForm.password}).then((ok:any)=>{
+        //  console.log(ok);
+        //  if(ok.data.length!==0){
+        //   ElMessage("登录成功");
+        //  }else {
+        //   ElMessage.error("登录失败");   
+        //  }
+        ok.data.length!==0 ? ElMessage("登录成功") :ElMessage.error("登录失败")
+        })
       }else{
         let data = {
           name: ruleForm.username,

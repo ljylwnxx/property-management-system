@@ -40,7 +40,7 @@
         <el-form-item prop="passwords"  v-show="model==='register'">
           <label>重复密码</label>
           <el-input
-          v-model.number="ruleForm.passwords"
+          v-model="ruleForm.passwords"
           type="password"
           minlength="6"
           maxlength="15"
@@ -59,7 +59,7 @@
 <script lang="ts" setup>
 import { reactive } from "vue";
 import { ref } from "vue";
-import type { FormInstance } from "element-plus";
+import { ElMessage, FormInstance } from "element-plus";
 import  * as ck from "../../utils/verfifcation.js"
 
 import link from "../../api/Link.js"
@@ -138,14 +138,27 @@ const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate((valid) => {
     if (valid) {
-      console.log("submit!");
-
-      link(apiUrl.one).then((ok:any)=>{
+      if(model.value==="login"){
+        console.log("登录")
+      }else{
+        let data = {
+          name: ruleForm.username,
+          pwd: ruleForm.password
+        }
+        link(apiUrl.register,"POST",data).then((ok:any)=>{
         console.log(ok)
+        if(Object.keys(ok.data).length!==0){
+          ElMessage('注册成功')
+          model.value = "login"
+          MenuData.forEach(v => {
+            v.current=false
+          })
+          MenuData[0].current=true
+        }else{
+          ElMessage.error("注册失败")
+        }
       })
-
-
-
+      }
     } else {
       console.log("error submit!");
       return false;

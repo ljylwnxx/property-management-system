@@ -1,8 +1,14 @@
 {
-   "one":[
-        {"name":"jk"},
-        {"name":"jw"},
-        {"name":"je"},
-        {"name":"jr"}
-    ]
+  "register": [
+    {
+      "id": 1,
+      "name": "admin@163.com",
+      "pwd": "admin123"
+    },
+    {
+      "name": "apple@163.com",
+      "pwd": "apple1",
+      "id": 2
+    }
+  ]
 }

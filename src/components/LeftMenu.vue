@@ -5,6 +5,7 @@
         class="el-menu-vertical-demo"
         default-active="2"
         text-color="#fff"
+        :collapse="!$store.state.HomeModule.navBool"
         @open="handleOpen"
         @close="handleClose"
       >

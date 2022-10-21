@@ -24,13 +24,13 @@ import RightTop from "../../components/RightTop.vue"
 
 <style lang="scss">
   .el-aside{
-    background-color:  rgb(236, 219, 134);
+    background-color:  #545c64;
   }
   .el-header{
-    background-color: rgb(109, 197, 247);;
+    // background-color: rgb(109, 197, 247);
   }
   .el-main{
-    background-color: pink;
+    background-color: gainsboro;
   }
   .el-aside,.el-container,.common-layout,#app,body,html {
     height: 100%;

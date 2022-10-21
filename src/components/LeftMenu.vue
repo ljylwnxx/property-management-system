@@ -8,6 +8,7 @@
         :collapse="!$store.state.HomeModule.navBool"
         @open="handleOpen"
         @close="handleClose"
+        router
       >
         <template v-for="v in router.options.routes[1].children" :key="v.path">
           <!-- 带下拉的导航 -->

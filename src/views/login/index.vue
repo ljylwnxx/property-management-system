@@ -71,6 +71,9 @@ import apiUrl from "../../api/url.js"
 
 import useMd5 from "../../hook/index.js"
 
+import {useRouter} from "vue-router"
+let router = useRouter()
+
 const MenuData = reactive([
   { txt: "登录", current: true, type: "login" },
   { txt: "注册", current: false, type: "register" },
@@ -170,12 +173,13 @@ const submitForm = (formEl: FormInstance | undefined) => {
 
         link(apiUrl.register,"get",{},{name:ruleForm.username,pwd:useMd5(ruleForm.password).value}).then((ok:any)=>{
         //  console.log(ok);
-        //  if(ok.data.length!==0){
-        //   ElMessage("登录成功");
-        //  }else {
-        //   ElMessage.error("登录失败");   
-        //  }
-        ok.data.length!==0 ? ElMessage("登录成功") :ElMessage.error("登录失败")
+         if(ok.data.length!==0){
+          ElMessage("登录成功");
+          router.push("/home")
+         }else {
+          ElMessage.error("登录失败");   
+         }
+        // ok.data.length!==0 ? ElMessage("登录成功") :ElMessage.error("登录失败")
         })
       }else{
         let data = {

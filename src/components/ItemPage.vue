@@ -11,8 +11,8 @@
 <style lang="scss">
   .item{
     height: 5.125rem;
-    border: 1px solid rgba(168,166,166);
+    // border: 1px solid rgba(168,166,166);
     margin: 0.25rem;
-    background-color: rgba(203,203,203, 0.7);
+    background-color: rgba(147,147,147, 0.8);
   }
 </style>

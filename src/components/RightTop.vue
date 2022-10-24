@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="righttop">
     <el-icon @click="collclick"><CaretRight v-if="$store.state.HomeModule.navBool"/><CaretLeft v-else/></el-icon>
   </div>
 </template>
@@ -18,6 +18,11 @@ let collclick=()=>{
 <style lang="scss">
     .el-header{
     line-height: 70px;
+  .righttop{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .el-icon{
        font-size: 20px;
       }

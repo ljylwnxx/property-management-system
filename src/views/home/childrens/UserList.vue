@@ -52,7 +52,6 @@ let tableData = reactive({
 
 let searchLink=()=>{
   link(apiUrl.userlist,"get",{},{name:search.value}).then((ok:any)=>{
-   console.log(ok);
    tableData.listdata = ok.data
   })
 }
@@ -60,33 +59,9 @@ let searchLink=()=>{
 
 onMounted(()=>{
   link(apiUrl.userlist).then((ok:any)=>{
-   console.log(ok);
    tableData.listdata = ok.data
   })
 })
-
-// const tableData = [
-//   {
-//     date: '2016-05-03',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//   },
-//   {
-//     date: '2016-05-02',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//   },
-//   {
-//     date: '2016-05-04',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//   },
-//   {
-//     date: '2016-05-01',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//   },
-// ]
 </script>
 
 <style>

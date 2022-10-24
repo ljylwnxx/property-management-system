@@ -7,7 +7,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    DailyVisitorStatistics: typeof import('./src/components/DailyVisitorStatistics.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDialog: typeof import('element-plus/es')['ElDialog']
@@ -24,15 +26,14 @@ declare module '@vue/runtime-core' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
-    Four: typeof import('./src/components/Four.vue')['default']
     ItemPage: typeof import('./src/components/ItemPage.vue')['default']
     LeftMenu: typeof import('./src/components/LeftMenu.vue')['default']
-    One: typeof import('./src/components/One.vue')['default']
+    PopulationStatistics: typeof import('./src/components/PopulationStatistics.vue')['default']
+    RepairStatistics: typeof import('./src/components/RepairStatistics.vue')['default']
     RightTop: typeof import('./src/components/RightTop.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Three: typeof import('./src/components/Three.vue')['default']
-    Two: typeof import('./src/components/Two.vue')['default']
     UpdateDialog: typeof import('./src/components/UpdateDialog.vue')['default']
+    VehicleStatistics: typeof import('./src/components/VehicleStatistics.vue')['default']
   }
 }

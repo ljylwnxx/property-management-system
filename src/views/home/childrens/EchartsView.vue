@@ -3,24 +3,24 @@
     <div class="itemleft">
       <ItemPage>
         <template #main>  
-          <One/>
+          <PopulationStatistics/>
         </template>
       </ItemPage>
       <ItemPage>
         <template #main>  
-          <Two/>
+          <DailyVisitorStatistics/>
         </template>
       </ItemPage>
     </div>
     <div class="itemright">
       <ItemPage>
         <template #main>  
-          <Three/>
+          <RepairStatistics/>
         </template>
       </ItemPage>
       <ItemPage>
         <template #main>  
-          <Four/>
+          <VehicleStatistics/>
         </template>
       </ItemPage>
     </div>
@@ -29,10 +29,10 @@
 
 <script setup>
 import ItemPage from "../../../components/ItemPage.vue"
-import One from "../../../components/One.vue"
-import Two from "../../../components/Two.vue"
-import Three from "../../../components/Three.vue"
-import Four from "../../../components/Four.vue"
+import PopulationStatistics from "../../../components/PopulationStatistics.vue"
+import DailyVisitorStatistics from "../../../components/DailyVisitorStatistics.vue"
+import RepairStatistics from "../../../components/RepairStatistics.vue"
+import VehicleStatistics from "../../../components/VehicleStatistics.vue"
 </script>
 
 <style lang="scss">

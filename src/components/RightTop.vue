@@ -1,12 +1,12 @@
 <template>
   <div class="righttop">
     <el-icon @click="collclick"><CaretRight v-if="$store.state.HomeModule.navBool"/><CaretLeft v-else/></el-icon>
-    <h2 @click="quit">退出</h2>
+    <el-button type="info" :icon="SwitchButton" @click="quit">退出</el-button>
   </div>
 </template>
 
 <script setup>
-import { CaretRight, CaretLeft } from '@element-plus/icons-vue'
+import { CaretRight, CaretLeft, SwitchButton } from '@element-plus/icons-vue'
 import {useStore} from "vuex"
 import {useRouter} from "vue-router"
 let router = useRouter()
@@ -28,6 +28,7 @@ let quit=()=>{
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 70px;
     }
     .el-icon{
        font-size: 20px;
